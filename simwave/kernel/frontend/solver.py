@@ -244,7 +244,7 @@ class Solver:
             time_model=self.time_model
         )
 
-        grad = self._middleware.exec(
+        gradi = self._middleware.exec(
             operator='gradient',
             c_file=c_file,            
             v=self.v(),
@@ -280,9 +280,10 @@ class Solver:
         ) 
            
         # remove spatial halo region from gradient
-        grad = self.space_model.remove_halo_region_from_gradient(grad)
+        print(gradi)
+        gradi = self.space_model.remove_halo_region_from_gradient(gradi)
 
-        return grad
+        return gradi
     
     def gradient(self, num_checkpoints, residual, c_file):
         """
