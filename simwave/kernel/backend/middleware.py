@@ -159,7 +159,7 @@ class Middleware:
             operator="gradient",
             c_file=c_file
         )
-
+        print(type(lib))
         # get the argtype for each arg key
         types = self._argtypes(**kwargs)
 
@@ -181,7 +181,8 @@ class Middleware:
         gradient = lib.gradient
         gradient.restype = ctypes.c_double
         gradient.argtypes = argtypes
-
+        print(gradient)
+        print("oi")
         # run the C gradient function
         exec_time = gradient(*args)
 
