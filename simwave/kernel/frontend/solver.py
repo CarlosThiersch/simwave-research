@@ -285,7 +285,7 @@ class Solver:
 
         return gradi
     
-    def gradient(self, num_checkpoints, residual, c_file):
+    def fast_gradient(self, num_checkpoints, residual, c_file):
         """
         Run the the adjoint and gradient.
 
