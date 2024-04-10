@@ -79,6 +79,9 @@ class Middleware:
         # run the gradient operator
         if operator == 'gradient':
             return self._exec_gradient(c_file, **kwargs)
+        
+        if operator == 'fast_gradient':
+            return self._exec_fast_gradient(c_file, **kwargs)
 
     def _exec_forward(self, operator, c_file, **kwargs):
         """
