@@ -1274,12 +1274,12 @@ extern "C" double fast_gradient(f_type *v, f_type *grad, f_type *velocity, f_typ
 
             u_snapshot = snapshot_d_current;                        
             count = 0;
-        /*}else if(n% saving_stride == 0){
+        }else if(n% saving_stride == 0){
             
             printf("Recovering checkpoint %d in timestep %ld\n", snapshots.top().index, n);
 
             u_snapshot = snapshot_d_prev;
-            count = 0;*/     
+            count = 0;     
         }else if (count ==0){                       
             // recompute
             fast_forward_checkpoint(u, snapshot_d_prev, snapshot_d_current, velocity, damp,
@@ -1295,15 +1295,15 @@ extern "C" double fast_gradient(f_type *v, f_type *grad, f_type *velocity, f_typ
                           space_order, device_id);
             index = (n%3)*domain_size;
             u_snapshot = &u[index];
-            //count +=1;
+            count +=1;
             
             //printf("Recompute %ld using chekpoint %d : [%ld - %ld]\n", n, checkpoint_id, (checkpoint_id * saving_stride + 1), n);
 
-        } /*else{
+        } else{
             index = (n%3)*domain_size;
             u_snapshot = &u[index];
             count = (count+1)%3;
-        } /*
+        } 
 
 
         /*
@@ -1329,7 +1329,7 @@ extern "C" double fast_gradient(f_type *v, f_type *grad, f_type *velocity, f_typ
         }
 
         // remove the recent used snapshot
-        if( (n-1) % saving_stride == 0 ){
+        if( (n) % saving_stride == 0 ){
             // remove the the current snapshot from the stack
             free(snapshots.top().prev);
             free(snapshots.top().current);
