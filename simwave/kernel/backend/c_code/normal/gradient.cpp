@@ -1295,15 +1295,15 @@ extern "C" double fast_gradient(f_type *v, f_type *grad, f_type *velocity, f_typ
                           space_order, device_id);
             index = (n%3)*domain_size;
             u_snapshot = &u[index];
-            count +=1;
+            //count +=1;
             
             //printf("Recompute %ld using chekpoint %d : [%ld - %ld]\n", n, checkpoint_id, (checkpoint_id * saving_stride + 1), n);
 
-        }else{
+        } /*else{
             index = (n%3)*domain_size;
             u_snapshot = &u[index];
             count = (count+1)%3;
-        } 
+        } /*
 
 
         /*
