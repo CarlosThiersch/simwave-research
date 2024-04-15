@@ -223,7 +223,7 @@ if __name__ == "__main__":
     # compute the adjoint and gradient
     grad = compute_gradient(velocity_model=smooth_vel, recv_true=recv_true)
 
-    fast_grad = compute_fast_gradient(velocity_model=smooth_vel,rec_true=recv_true)
+    fast_grad = compute_fast_gradient(velocity_model=smooth_vel,recv_true=recv_true)
 
     plot_velocity_model(grad[50, :, :], file_name="grad")
 
