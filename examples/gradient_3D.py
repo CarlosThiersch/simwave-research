@@ -165,6 +165,31 @@ def compute_gradient(velocity_model, recv_true):
 
     return grad
 
+def compute_fast_gradient(velocity_model, recv_true):
+
+    # true model solver
+    solver = create_solver(velocity_model=velocity_model)
+
+    # run the forward computation
+    u_sim, recv_sim = solver.forward_no_saving(c_file="../simwave/kernel/backend/c_code/forward.cpp")
+
+
+    plot_velocity_model(solver.space_model.velocity_model[50, :, :],
+                        file_name="smooth_velocity_model")
+
+    plot_wavefield(u_sim[50, :, :], file_name="smooth_final_wavefield")
+    plot_shotrecord(recv_sim, file_name="smooth_seismogram", solver=solver)
+
+    # residual
+    residual = recv_sim - recv_true
+
+    plot_shotrecord(residual, file_name="residual_seismogram", solver=solver)
+
+    # compute the gradient
+    grad = solver.fast_gradient(num_checkpoints=5, residual=residual, c_file=selected_compiler['path'])
+
+    return grad
+
 
 def camembert_velocity_model(grid_size, radius):
 
@@ -198,4 +223,9 @@ if __name__ == "__main__":
     # compute the adjoint and gradient
     grad = compute_gradient(velocity_model=smooth_vel, recv_true=recv_true)
 
+    fast_grad = compute_fast_gradient(velocity_model=smooth_vel,rec_true=recv_true)
+
     plot_velocity_model(grad[50, :, :], file_name="grad")
+
+    plot_velocity_model(fast_grad[50, :, :], file_name="grad")
+    
