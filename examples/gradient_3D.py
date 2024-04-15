@@ -227,5 +227,5 @@ if __name__ == "__main__":
 
     plot_velocity_model(grad[50, :, :], file_name="grad")
 
-    plot_velocity_model(fast_grad[50, :, :], file_name="grad")
+    plot_velocity_model(fast_grad[50, :, :], file_name="fast_grad")
     
